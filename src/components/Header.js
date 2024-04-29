@@ -7,14 +7,22 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+ const nav = useNavigate();
  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
  const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
  };
-
+ const handleLogout = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  nav("/login"); 
+  handleCloseUserMenu();
+ };
+ 
  const handleCloseUserMenu = () => {
     setAnchorElUser(null);
  };
@@ -34,7 +42,7 @@ function Header() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>
       </Toolbar>

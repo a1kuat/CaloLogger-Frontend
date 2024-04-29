@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Container, Link, Grid, CssBaseline, Avatar, Snackbar, Alert } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+ const nav = useNavigate();
  const [username, setUsername] = useState('');
  const [password, setPassword] = useState('');
  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
- const handleLogin = async () => {
+ const handleLogin = async (event) => {
+    event.preventDefault();
     const response = await fetch('http://localhost:8000/v1/auth/login', {
       method: 'POST',
       headers: {
@@ -16,11 +19,12 @@ const Login = () => {
       },
       body: `grant_type=&username=${username}&password=${password}&scope=&client_id=&client_secret=`,
     });
-    console.log(username);
-    console.log(password);
     if (response.ok) {
       const data = await response.json();
       console.log(data);
+      localStorage.setItem('accessToken', data.access_token);
+      localStorage.setItem('refreshToken', data.refresh_token);
+      nav("/home");
      } else {
       console.error('Login failed');
       setSnackbarOpen(true); 

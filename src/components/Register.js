@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Container, Link, Grid, CssBaseline, Avatar, Snackbar, Alert } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+ const nav = useNavigate();
  const [username, setUsername] = useState('');
  const [password, setPassword] = useState('');
  const [snackbarOpen, setSnackbarOpen] = useState(false);
- console.log("AZA");
- const handleRegister = async () => {
+ const handleRegister = async (event) => {
+    event.preventDefault();
     const response = await fetch('http://localhost:8000/v1/auth/signup', {
       method: 'POST',
       headers: {
@@ -19,11 +21,10 @@ const Register = () => {
          password: password,
       })
     });
-    console.log(username);
-    console.log(password);
     if (response.ok) {
       const data = await response.json();
       console.log(data);
+      nav('/login');
      } else {
       console.error('Registration failed');
       setSnackbarOpen(true); 
@@ -38,7 +39,6 @@ const Register = () => {
     }
     setSnackbarOpen(false); 
  };
-
  return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

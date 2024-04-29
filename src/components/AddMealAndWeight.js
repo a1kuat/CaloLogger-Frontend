@@ -11,13 +11,13 @@ function AddMealAndWeight({ onAddMeal , onAddWeight}) {
 
  const handleMealSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Adding meal: ${mealName}`);
-    
+    const accessToken = localStorage.getItem('accessToken');
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
+                'Authorization': `Bearer ${accessToken}`,
             },
         };
     
@@ -41,13 +41,14 @@ function AddMealAndWeight({ onAddMeal , onAddWeight}) {
 
  const handleWeightSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Adding weight: ${weight}`);
-    
+    const accessToken = localStorage.getItem('accessToken');
+
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
+                'Authorization': `Bearer ${accessToken}`,
             },
         };
     

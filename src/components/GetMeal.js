@@ -11,10 +11,12 @@ function GetMeal() {
 
  const handleDelete = async (mealId) => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
       const response = await fetch(`http://localhost:8000/v1/meal/?meal_id=${mealId}`, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
       });
 
@@ -29,10 +31,12 @@ function GetMeal() {
 
  const fetchMeals = async () => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
       const response = await fetch('http://localhost:8000/v1/meal/', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
       });
 
@@ -54,10 +58,12 @@ function GetMeal() {
  
  const fetchWeight = async () => {
   try {
+    const accessToken = localStorage.getItem('accessToken');
     const response = await fetch('http://localhost:8000/v1/weight/', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
       },
     });
 
