@@ -1,21 +1,26 @@
 import React from 'react';
-import { TextField, IconButton } from '@mui/material';
+import { TextField, IconButton, Typography, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 const MealForm = ({ onSubmit, onMealNameChange, mealName }) => {
  return (
-    <form onSubmit={onSubmit}>
+    <Box component="form" onSubmit={onSubmit} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+      <Typography variant="h4" >Add</Typography>
+      <Typography variant="h4" >Meal:</Typography>
       <TextField
-        label="Add Meal Name"
+        label="Meal Name"
         value={mealName}
         onChange={onMealNameChange}
-        sx={{ backgroundColor: 'white' }}
+        variant="outlined"
+        fullWidth
+        sx={{ backgroundColor: 'white', borderRadius: 1 }}
       />
-      <IconButton type="submit" size="small" sx={{ backgroundColor: 'white', color: 'black', marginLeft: 1, marginTop: 1 }}>
+      <IconButton type="submit" size="large" sx={{ backgroundColor: 'primary.main', color: 'white', borderRadius: 1, '&:hover': { backgroundColor: 'primary.dark' } }}>
         <AddIcon />
       </IconButton>
-    </form>
+    </Box>
  );
 };
 
 export default MealForm;
+

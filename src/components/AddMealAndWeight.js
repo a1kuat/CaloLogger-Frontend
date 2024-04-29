@@ -3,7 +3,7 @@ import { Box, Stack, Snackbar, Alert } from '@mui/material';
 import MealForm from './MealForm';
 import WeightForm from './WeightForm';
 
-function AddMealAndWeight({ onAddSuccess }) {
+function AddMealAndWeight({ onAddMeal , onAddWeight}) {
  const [mealName, setMealName] = useState('');
  const [weight, setWeight] = useState('');
  const [open, setOpen] = useState(false);
@@ -29,8 +29,8 @@ function AddMealAndWeight({ onAddSuccess }) {
             setMealName('');
             setMessage('Meal successfully added');
             setOpen(true);
-            if (onAddSuccess) {
-                onAddSuccess();
+            if (onAddMeal) {
+                onAddMeal();
               }
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
@@ -59,8 +59,8 @@ function AddMealAndWeight({ onAddSuccess }) {
             setMealName('');
             setMessage('Weight successfully added');
             setOpen(true);
-            if (onAddSuccess) {
-                onAddSuccess();
+            if (onAddWeight) {
+                onAddWeight();
               }
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
@@ -71,7 +71,7 @@ function AddMealAndWeight({ onAddSuccess }) {
 
  return (
     <Box>
-      <Stack direction="row" spacing={10} alignItems="center">
+      <Stack direction="row" spacing={10} alignItems="center"  justifyContent= "center">
         <MealForm
           onSubmit={handleMealSubmit}
           onMealNameChange={(e) => setMealName(e.target.value)}
