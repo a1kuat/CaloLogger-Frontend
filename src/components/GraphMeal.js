@@ -1,26 +1,27 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import PropTypes from 'prop-types';
 
 const GraphMeal = ({ meals }) => {
- const calculateCaloriesPerDay = (meals) => {
+  const calculateCaloriesPerDay = (meals) => {
     const caloriesPerDay = meals.reduce((acc, meal) => {
-       const mealDate = new Date(meal.time).toDateString();
-       if (!acc[mealDate]) {
-         acc[mealDate] = 0;
-       }
-       const calorieData = JSON.parse(meal.calorie_ninjas_response.replace(/'/g, '"'));
-       acc[mealDate] += calorieData.calories;
-       return acc;
+      const mealDate = new Date(meal.time).toDateString();
+      if (!acc[mealDate]) {
+        acc[mealDate] = 0;
+      }
+      const calorieData = JSON.parse(meal.calorie_ninjas_response.replace(/'/g, '"'));
+      acc[mealDate] += calorieData.calories;
+      return acc;
     }, {});
    
     const sortedEntries = Object.entries(caloriesPerDay).sort((a, b) => new Date(a[0]) - new Date(b[0]));
    
     return sortedEntries.map(([day, calories]) => ({ day, calories }));
-   };
+  };
    
- const data = calculateCaloriesPerDay(meals);
+  const data = calculateCaloriesPerDay(meals);
 
- return (
+  return (
     <BarChart
       width={1900}
       height={900}
@@ -35,7 +36,17 @@ const GraphMeal = ({ meals }) => {
       <Tooltip />
       <Bar dataKey="calories" fill="#8884d8" />
     </BarChart>
- );
+  );
 };
+
+GraphMeal.propTypes = {
+  meals: PropTypes.arrayOf(
+    PropTypes.shape({
+      time: PropTypes.string.isRequired,
+      calorie_ninjas_response: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
 
 export default GraphMeal;

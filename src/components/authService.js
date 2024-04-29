@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8080/api/auth/';
 
 class AuthService {
- login(user) {
+  login(user) {
     return axios
       .post(API_URL + 'signin', {
         login: user.login,
@@ -16,14 +16,14 @@ class AuthService {
 
         return response.data;
       });
- }
+  }
 
- register(user) {
+  register(user) {
     return axios.post(API_URL + 'signup', {
       login: user.login,
       password: user.password,
     });
- }
+  }
 }
 
 export default new AuthService();

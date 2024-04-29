@@ -1,9 +1,10 @@
 import React from 'react';
 import { TextField, IconButton, Typography, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PropTypes from 'prop-types';
 
 const MealForm = ({ onSubmit, onMealNameChange, mealName }) => {
- return (
+  return (
     <Box component="form" onSubmit={onSubmit} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
       <Typography variant="h4" >Add</Typography>
       <Typography variant="h4" >Meal:</Typography>
@@ -19,8 +20,15 @@ const MealForm = ({ onSubmit, onMealNameChange, mealName }) => {
         <AddIcon />
       </IconButton>
     </Box>
- );
+  );
 };
+
+MealForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onMealNameChange: PropTypes.func.isRequired,
+  mealName: PropTypes.string.isRequired,
+};
+
 
 export default MealForm;
 

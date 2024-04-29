@@ -1,9 +1,10 @@
 import React from 'react';
 import { TextField, IconButton, Typography, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PropTypes from 'prop-types';
 
 const MealForm = ({ onSubmit, onWeightChange, weight }) => {
- return (
+  return (
     <Box component="form" onSubmit={onSubmit} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
       <Typography variant="h4" >Add</Typography>
       <Typography variant="h4" >Weight:</Typography>
@@ -19,8 +20,15 @@ const MealForm = ({ onSubmit, onWeightChange, weight }) => {
         <AddIcon />
       </IconButton>
     </Box>
- );
+  );
 };
+
+MealForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onWeightChange: PropTypes.func.isRequired,
+  weight: PropTypes.string.isRequired,
+};
+
 
 export default MealForm;
 

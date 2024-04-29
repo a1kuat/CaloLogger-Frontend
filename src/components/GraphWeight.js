@@ -1,8 +1,9 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import PropTypes from 'prop-types';
 
 const GraphWeight = ({ weights }) => {
- const calculateAverageWeightPerDay = (weights) => {
+  const calculateAverageWeightPerDay = (weights) => {
     const weightsPerDay = weights.reduce((acc, weight) => {
       const weightDate = new Date(weight.time).toDateString();
       if (!acc[weightDate]) {
@@ -20,11 +21,11 @@ const GraphWeight = ({ weights }) => {
       day,
       averageWeight: total / count,
     }));
- };
+  };
 
- const data = calculateAverageWeightPerDay(weights);
+  const data = calculateAverageWeightPerDay(weights);
 
- return (
+  return (
     <BarChart
       width={1900}
       height={900}
@@ -39,7 +40,17 @@ const GraphWeight = ({ weights }) => {
       <Tooltip />
       <Bar dataKey="averageWeight" fill="#4CAF50" /> 
     </BarChart>
- );
+  );
 };
+
+GraphWeight.propTypes = {
+  weights: PropTypes.arrayOf(
+    PropTypes.shape({
+      time: PropTypes.string.isRequired,
+      weight: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};
+
 
 export default GraphWeight;

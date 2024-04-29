@@ -7,27 +7,27 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
- const nav = useNavigate();
- const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const nav = useNavigate();
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
- const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
- };
- const handleLogout = () => {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-  nav("/login"); 
-  handleCloseUserMenu();
- };
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    nav('/login'); 
+    handleCloseUserMenu();
+  };
  
- const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = () => {
     setAnchorElUser(null);
- };
+  };
 
- return (
+  return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
@@ -47,7 +47,7 @@ function Header() {
         </Box>
       </Toolbar>
     </AppBar>
- );
+  );
 }
 
 export default Header;

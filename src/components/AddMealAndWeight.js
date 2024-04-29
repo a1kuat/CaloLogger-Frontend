@@ -2,75 +2,74 @@ import React, { useState } from 'react';
 import { Box, Stack, Snackbar, Alert } from '@mui/material';
 import MealForm from './MealForm';
 import WeightForm from './WeightForm';
+import PropTypes from 'prop-types';
 
 function AddMealAndWeight({ onAddMeal , onAddWeight}) {
- const [mealName, setMealName] = useState('');
- const [weight, setWeight] = useState('');
- const [open, setOpen] = useState(false);
- const [message, setMessage] = useState('');
+  const [mealName, setMealName] = useState('');
+  const [weight, setWeight] = useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
- const handleMealSubmit = async (event) => {
+  const handleMealSubmit = async (event) => {
     event.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json', 
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        };
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json', 
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    };
     
-        try {
-            const response = await fetch(`http://localhost:8000/v1/meal/?name=${encodeURIComponent(mealName)}`, requestOptions);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            setMealName('');
-            setMessage('Meal successfully added');
-            setOpen(true);
-            if (onAddMeal) {
-                onAddMeal();
-              }
-        } catch (error) {
-            console.error('There was a problem with your fetch operation:', error);
-            setMessage('Failed to add meal');
-            setOpen(true);
-        }
- };
+    try {
+      const response = await fetch(`http://localhost:8000/v1/meal/?name=${encodeURIComponent(mealName)}`, requestOptions);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setMealName('');
+      setMessage('Meal successfully added');
+      setOpen(true);
+      if (onAddMeal) {
+        onAddMeal();
+      }
+    } catch (error) {
+      setMessage('Failed to add meal');
+      setOpen(true);
+    }
+  };
 
- const handleWeightSubmit = async (event) => {
+  const handleWeightSubmit = async (event) => {
     event.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
 
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json', 
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        };
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json', 
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    };
     
-        try {
-            const response = await fetch(`http://localhost:8000/v1/weight/?weight=${encodeURIComponent(weight)}`, requestOptions);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            setMealName('');
-            setMessage('Weight successfully added');
-            setOpen(true);
-            if (onAddWeight) {
-                onAddWeight();
-              }
-        } catch (error) {
-            console.error('There was a problem with your fetch operation:', error);
-            setMessage('Failed to add weight');
-            setOpen(true);
-        }
- };
+    try {
+      const response = await fetch(`http://localhost:8000/v1/weight/?weight=${encodeURIComponent(weight)}`, requestOptions);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setMealName('');
+      setMessage('Weight successfully added');
+      setOpen(true);
+      if (onAddWeight) {
+        onAddWeight();
+      }
+    } catch (error) {
+      setMessage('Failed to add weight');
+      setOpen(true);
+    }
+  };
 
- return (
+  return (
     <Box>
       <Stack direction="row" spacing={10} alignItems="center"  justifyContent= "center">
         <MealForm
@@ -91,7 +90,7 @@ function AddMealAndWeight({ onAddMeal , onAddWeight}) {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{
           width: '100%',
-          "& .MuiSnackbarContent-root": {
+          '& .MuiSnackbarContent-root': {
             backgroundColor: 'green',
             color: 'white',
           },
@@ -102,7 +101,13 @@ function AddMealAndWeight({ onAddMeal , onAddWeight}) {
         </Alert>
       </Snackbar>
     </Box>
- );
+  );
 }
+
+AddMealAndWeight.propTypes = {
+  onAddMeal: PropTypes.func,
+  onAddWeight: PropTypes.func,
+};
+
 
 export default AddMealAndWeight;

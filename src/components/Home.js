@@ -4,12 +4,12 @@ import GetMeal from './GetMeal';
 
 const HomePage = () => {
 
- return (
+  return (
     <div>
       <Header />
       <GetMeal/>
     </div>
- );
+  );
 };
 
 export default HomePage;

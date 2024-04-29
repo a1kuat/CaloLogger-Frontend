@@ -4,42 +4,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
- const nav = useNavigate();
- const [username, setUsername] = useState('');
- const [password, setPassword] = useState('');
- const [snackbarOpen, setSnackbarOpen] = useState(false);
- const handleRegister = async (event) => {
+  const nav = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleRegister = async (event) => {
     event.preventDefault();
     const response = await fetch('http://localhost:8000/v1/auth/signup', {
       method: 'POST',
       headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-         username: username,
-         password: password,
+        username: username,
+        password: password,
       })
     });
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
       nav('/login');
-     } else {
-      console.error('Registration failed');
+    } else {
       setSnackbarOpen(true); 
-     }
+    }
      
      
- };
+  };
 
- const handleSnackbarClose = (event, reason) => {
+  const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setSnackbarOpen(false); 
- };
- return (
+  };
+  return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -84,9 +81,9 @@ const Register = () => {
           </Button>
           <Grid container>
             <Grid item>
-            <Link href="/login" variant="body2">
-                {"Back to Login"}
-            </Link>
+              <Link href="/login" variant="body2">
+                {'Back to Login'}
+              </Link>
             </Grid>
           </Grid>
         </Box>
@@ -98,7 +95,7 @@ const Register = () => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{
           width: '100%',
-          "& .MuiSnackbarContent-root": {
+          '& .MuiSnackbarContent-root': {
             backgroundColor: 'green',
             color: 'white',
           },
@@ -109,7 +106,7 @@ const Register = () => {
         </Alert>
       </Snackbar>
     </Container>
- );
+  );
 };
 
 export default Register;

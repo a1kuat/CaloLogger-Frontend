@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Register from './components/Register'; 
 
 function App() {
- return (
+  return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
- );
+  );
 }
 
 export default App;
