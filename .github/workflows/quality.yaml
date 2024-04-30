@@ -1,0 +1,19 @@
+name: quality
+
+on: [ push ]
+
+jobs:
+  tests:
+    name: quality checks
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v24
+      - run: |
+          nix develop --command bash -c 'npm i'
+      - run: |
+          nix develop --command bash -c 'npm run lint'
